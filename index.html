@@ -117,8 +117,116 @@
 .font-btn:hover{
   background:#f0f8ff;
 }
+/* Bookmark button */
+.bm-btn{
+  margin-left:8px;
+  border:1px solid rgba(15,79,131,.18);
+  background:#fff;
+  border-radius:10px;
+  padding:6px 10px;
+  cursor:pointer;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  box-shadow:0 2px 10px rgba(15,23,42,.04);
+}
+
+.bm-btn:hover{ background:rgba(11,95,168,.06); }
+
+/* Minimalist SVG bookmark icon */
+.bm-icon{
+  width:16px;
+  height:16px;
+  display:block;
+}
+
+.bm-icon path{
+  fill:none;
+  stroke:rgba(75,85,99,.85);
+  stroke-width:2;
+  stroke-linejoin:round;
+}
+
+/* Saved state = red */
+.bm-btn.on .bm-icon path{
+  fill:#d61f26;
+  stroke:#d61f26;
+}
 
 #toTop:hover{ background:#fff; }
+.fav-modal{
+  position:fixed; inset:0;
+  background:rgba(15,23,42,.35);
+  align-items:flex-end;
+  justify-content:center;
+  padding:16px;
+  z-index:999;
+}
+
+.fav-card{
+  width:min(520px, 100%);
+  background:#fff;
+  border-radius:16px;
+  border:1px solid rgba(15,79,131,.15);
+  box-shadow:0 18px 45px rgba(15,23,42,.22);
+  overflow:hidden;
+}
+
+.fav-head{
+  display:flex; align-items:center; justify-content:space-between;
+  padding:12px 14px;
+  border-bottom:1px solid rgba(15,79,131,.12);
+  background:linear-gradient(180deg,#f6fbff 0%,#e4f4ff 100%);
+}
+
+.fav-close{
+  border:1px solid rgba(15,79,131,.25);
+  background:#fff;
+  border-radius:10px;
+  padding:8px 10px;
+  cursor:pointer;
+  font-weight:700;
+  color:#0b4f86;
+}
+
+.fav-list{ padding:10px 14px; max-height:55vh; overflow:auto; }
+
+.fav-item{
+  display:flex; justify-content:space-between; align-items:center;
+  padding:10px 10px;
+  border:1px solid rgba(15,79,131,.12);
+  border-radius:12px;
+  margin:8px 0;
+  background:#fff;
+}
+
+.fav-item button{
+  border:1px solid rgba(15,79,131,.18);
+  background:rgba(11,95,168,.06);
+  border-radius:10px;
+  padding:8px 10px;
+  cursor:pointer;
+  font-weight:800;
+  color:#0b4f86;
+}
+/* De-emphasise personal utilities */
+.utils{
+  display:flex;
+  gap:8px;
+  margin-left:auto;   /* pushes to the right */
+  opacity:.7;
+}
+
+.utils:hover{
+  opacity:1;
+}
+/* Tighten bookmark count spacing */
+#bmCount{
+  margin:0;
+  padding:0;
+  display:inline;
+}
+
   </style>
 </head>
 <script>
@@ -129,6 +237,129 @@
     fontScale = Math.min(Math.max(fontScale, 0.8), 1.5); // limits
     document.documentElement.style.fontSize = fontScale + "em";
   }
+</script>
+<script>
+  const BM_KEY = "nziyo_bookmarks_v1";
+
+  const BOOKMARK_SVG = `
+    <svg class="bm-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+      <path d="M6 3h12a1 1 0 0 1 1 1v17l-7-4-7 4V4a1 1 0 0 1 1-1z"></path>
+    </svg>
+  `;
+
+  function getBookmarks(){
+    try { return JSON.parse(localStorage.getItem(BM_KEY) || "[]"); }
+    catch { return []; }
+  }
+
+  function setBookmarks(list){
+    localStorage.setItem(BM_KEY, JSON.stringify(list));
+    refreshBookmarkUI();
+  }
+
+  function toggleBookmark(num){
+    const set = new Set(getBookmarks());
+    if (set.has(num)) set.delete(num);
+    else set.add(num);
+    setBookmarks(Array.from(set).sort());
+  }
+
+  function refreshBookmarkUI(){
+    const set = new Set(getBookmarks());
+
+    document.querySelectorAll(".bm-btn[data-num]").forEach(btn => {
+      btn.classList.toggle("on", set.has(btn.dataset.num));
+    });
+
+    const countEl = document.getElementById("bmCount");
+    if (countEl) countEl.textContent = set.size;
+  }
+
+  function injectBookmarkButtons(){
+    document.querySelectorAll("section.hymn[id^='hymn-']").forEach(section => {
+      const num = section.id.replace("hymn-",""); // "001"
+      const h2 = section.querySelector("h2");
+      if (!h2) return;
+
+      // Avoid duplicates if you reload
+      if (h2.querySelector(".bm-btn")) return;
+
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "bm-btn";
+      btn.setAttribute("aria-label", `Bookmark hymn ${num}`);
+      btn.dataset.num = num;
+      btn.innerHTML = BOOKMARK_SVG;
+      btn.addEventListener("click", () => toggleBookmark(num));
+
+      // Put it after the title (after .name if present)
+      const nameEl = h2.querySelector(".name");
+      if (nameEl && nameEl.nextSibling) {
+        nameEl.insertAdjacentElement("afterend", btn);
+      } else {
+        h2.appendChild(btn);
+      }
+    });
+
+    refreshBookmarkUI();
+  }
+
+  function openBookmarks(){
+    const modal = document.getElementById("bmModal");
+    const list = document.getElementById("bmList");
+    const nums = getBookmarks();
+
+    list.innerHTML = "";
+
+    if (!nums.length) {
+      list.innerHTML = "<div style='color:#4b5563;padding:10px;'>No bookmarks yet. Tap the bookmark icon on a hymn.</div>";
+    } else {
+      nums.forEach(num => {
+        const sec = document.getElementById("hymn-" + num);
+        const title =
+          sec?.querySelector(".name")?.textContent ||
+          sec?.getAttribute("data-hymn-name") ||
+          ("Hymn " + num);
+
+        const row = document.createElement("div");
+        row.className = "fav-item";
+        row.innerHTML = `
+          <div><b>${num}</b> — ${escapeHtml(title)}</div>
+          <button type="button">Go</button>
+        `;
+
+        row.querySelector("button").addEventListener("click", () => {
+          closeBookmarks();
+          sec?.scrollIntoView({behavior:"smooth", block:"start"});
+        });
+
+        list.appendChild(row);
+      });
+    }
+
+    modal.style.display = "flex";
+  }
+
+  function closeBookmarks(){
+    document.getElementById("bmModal").style.display = "none";
+  }
+
+  function escapeHtml(str){
+    return String(str).replace(/[&<>"']/g, s => ({
+      "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
+    }[s]));
+  }
+
+  // Init
+  window.addEventListener("load", () => {
+    injectBookmarkButtons();
+  });
+
+  // Optional: tap outside to close
+  document.addEventListener("click", (e) => {
+    const modal = document.getElementById("bmModal");
+    if (modal && modal.style.display === "flex" && e.target === modal) closeBookmarks();
+  });
 </script>
 
 <body>
@@ -154,14 +385,32 @@
 
 <main>
   <div class="top-note">
-    <span class="pill"><span class="dot"></span>Search by hymn number</span>
-    <span>Hymns 001–269 available:<em> “Imbai kuna Jehovha rwiyo rutsva.”</em></span>
+  <span class="pill">
+    <span class="dot"></span> Search a hymn number to jump
+  </span>
+
+  <span>
+    Hymns 001–269 available:
+    <em>“Imbai kuna Jehovha rwiyo rutsva.”</em>
+  </span>
+
+  <!-- ADD THIS WRAPPER -->
+  <div class="utils">
+    <span class="pill"
+          role="button"
+          tabindex="0"
+          onclick="openBookmarks()"
+          onkeydown="if(event.key==='Enter')openBookmarks()">
+      🔖 Bookmarks (<span id="bmCount">0</span>)
+    </span>
+
     <span class="pill">
-  Text size:
-  <button class="font-btn" onclick="changeFontSize(-1)">−</button>
-  <button class="font-btn" onclick="changeFontSize(1)">+</button>
-</span>
+      Text size:
+      <button class="font-btn">−</button>
+      <button class="font-btn">+</button>
+    </span>
   </div>
+</div>
 
   <section class="hymn" id="hymn-001" data-hymn-number="001" data-hymn-name="Hareruya! tenda-i SHE">
     <h2>
@@ -8934,6 +9183,15 @@ document.getElementById('hymnInput').addEventListener('keydown', function(e){
     });
   }
 </script>
+<div id="bmModal" class="fav-modal" style="display:none;">
+  <div class="fav-card" role="dialog" aria-modal="true" aria-label="Bookmarks">
+    <div class="fav-head">
+      <strong>Your bookmarks</strong>
+      <button class="fav-close" type="button" onclick="closeBookmarks()">Close</button>
+    </div>
+    <div id="bmList" class="fav-list"></div>
+  </div>
+</div>
 
 </body>
 </html>
