@@ -104,10 +104,32 @@
   box-shadow:0 6px 18px rgba(15,23,42,.10);
   display:none;
 }
+.font-btn{
+  border:1px solid rgba(15,79,131,.25);
+  background:#fff;
+  color:#0b4f86;
+  font-weight:800;
+  border-radius:8px;
+  padding:2px 8px;
+  cursor:pointer;
+}
+
+.font-btn:hover{
+  background:#f0f8ff;
+}
 
 #toTop:hover{ background:#fff; }
   </style>
 </head>
+<script>
+  let fontScale = 1;
+
+  function changeFontSize(step){
+    fontScale += step * 0.1;
+    fontScale = Math.min(Math.max(fontScale, 0.8), 1.5); // limits
+    document.documentElement.style.fontSize = fontScale + "em";
+  }
+</script>
 
 <body>
 <header class="masthead">
@@ -132,8 +154,13 @@
 
 <main>
   <div class="top-note">
-    <span class="pill"><span class="dot"></span> Search a hymn number to jump</span>
-    <span>Template ready: <b>001–259</b> (fill in titles + verses for 030–259).</span>
+    <span class="pill"><span class="dot"></span>Search by hymn number</span>
+    <span>Hymns 001–269 available:<em> “Imbai kuna Jehovha rwiyo rutsva.”</em></span>
+    <span class="pill">
+  Text size:
+  <button class="font-btn" onclick="changeFontSize(-1)">−</button>
+  <button class="font-btn" onclick="changeFontSize(1)">+</button>
+</span>
   </div>
 
   <section class="hymn" id="hymn-001" data-hymn-number="001" data-hymn-name="Hareruya! tenda-i SHE">
@@ -6926,7 +6953,7 @@ Ndichakudza imi
 Nokusingaperi.
 
 KOROSI
-:/: Chikudzai, Jehova, Bambo SHE; :/:
+Chikudzai, Jehova, Bambo SHE;
 Akudzwe, akudzwe
 Namarudzi ose!
 
