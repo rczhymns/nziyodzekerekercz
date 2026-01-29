@@ -404,11 +404,12 @@
       🔖 Bookmarks (<span id="bmCount">0</span>)
     </span>
 
-    <span class="pill">
-      Text size:
-      <button class="font-btn">−</button>
-      <button class="font-btn">+</button>
-    </span>
+<span class="pill">
+  Text size:
+  <button class="font-btn" type="button" onclick="changeFontSize(-1)">−</button>
+  <button class="font-btn" type="button" onclick="changeFontSize(1)">+</button>
+</span>
+
   </div>
 </div>
 
@@ -9192,6 +9193,28 @@ document.getElementById('hymnInput').addEventListener('keydown', function(e){
     <div id="bmList" class="fav-list"></div>
   </div>
 </div>
+<script>
+  (function () {
+    const KEY = "nziyo_font_scale_v1";
+
+    function apply(scale){
+      document.documentElement.style.fontSize = scale + "em";
+      localStorage.setItem(KEY, String(scale));
+    }
+
+    window.changeFontSize = function(step){
+      let scale = parseFloat(localStorage.getItem(KEY) || "1");
+      scale = scale + step * 0.1;
+      scale = Math.min(Math.max(scale, 0.85), 1.6);
+      apply(scale);
+    };
+
+    window.addEventListener("load", () => {
+      const saved = parseFloat(localStorage.getItem(KEY) || "1");
+      apply(saved);
+    });
+  })();
+</script>
 
 </body>
 </html>
