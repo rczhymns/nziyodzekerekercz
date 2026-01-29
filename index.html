@@ -71,6 +71,32 @@
     .hymn-search button:hover{
       background:#fff;
     }
+/* Solid, consistent hymn header layout */
+.hymn h2{
+  margin:0 0 8px;
+  display:grid;
+  grid-template-columns: auto 1fr auto; /* num | title | bookmark */
+  align-items:center;
+  column-gap:10px;
+  row-gap:6px; /* if title wraps, it wraps neatly */
+}
+
+/* Title wraps under itself, not under the number */
+.name{
+  min-width:0;          /* IMPORTANT for grid wrapping */
+  line-height:1.15;
+}
+
+
+.bm-btn{
+  height:40px;
+  width:40px;
+  padding:0;
+  border-radius:12px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+}
 
     main{max-width:1100px;margin:16px auto 48px;padding:0 14px}
     .top-note .pill{
@@ -90,8 +116,21 @@
     .top-note .dot{width:8px;height:8px;border-radius:50%;background:var(--accent-red);display:inline-block}
 
     .hymn{margin-top:16px;padding:18px 18px 14px;background:var(--card);border:1px solid var(--card-border);border-radius:var(--radius);box-shadow:var(--shadow);scroll-margin-top:124px}
-    .hymn h2{margin:0 0 8px;display:flex;flex-wrap:wrap;align-items:baseline;gap:10px;position:relative;padding-right:48px;}
-    .num{display:inline-flex;align-items:center;justify-content:center;padding:6px 10px;border-radius:10px;background:rgba(11,95,168,.08);border:1px solid rgba(11,95,168,.18);color:#0b5fa8;font-weight:800;letter-spacing:1px;min-width:62px}
+    .num{
+  height:40px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:0 12px;
+  border-radius:12px;
+  background:rgba(11,95,168,.08);
+  border:1px solid rgba(11,95,168,.18);
+  color:#0b5fa8;
+  font-weight:800;
+  letter-spacing:1px;
+  min-width:62px;
+}
+
     .name{font-size:20px;font-weight:800;color:#0b4f86}
     .meta{margin-left:auto;font-size:12px;color:var(--muted)}
     .verse{margin:10px 0 0;
@@ -142,13 +181,14 @@
 
     footer{max-width:1100px;margin:0 auto 26px;padding:0 14px;color:rgba(75,85,99,.9);font-size:12px}
 
-    @media (max-width:520px){
-      .brand{min-width:auto}
-      .hint{display:none}
-      .name{font-size:18px}
-      .hymn{padding:16px 14px 12px}
-      .hymn-bar-label{display:none}
-    }
+@media (max-width:520px){
+  .brand{min-width:auto}
+  .hint{display:none}
+  .name{font-size:18px}
+  .hymn{padding:16px 14px 12px}
+  .hymn-bar-label{display:none}
+}
+
     #toTop{
   position:fixed;
   right:16px;
@@ -178,25 +218,20 @@
 }
 /* Bookmark button */
 .bm-btn{
-  margin-left:8px;
+  height:40px;
+  width:40px;
+  padding:0;
+  border-radius:12px;
   border:1px solid rgba(15,79,131,.18);
   background:#fff;
-  border-radius:10px;
-  padding:6px 10px;
   cursor:pointer;
   display:inline-flex;
   align-items:center;
   justify-content:center;
   box-shadow:0 2px 10px rgba(15,23,42,.04);
 }
+
 /* Fix bookmark position in hymn header */
-.hymn h2 .bm-btn{
-  position:absolute;
-  top:50%;
-  right:0;
-  transform:translateY(-50%);
-  margin-left:0; /* override old margin */
-}
 
 
 .bm-btn:hover{ background:rgba(11,95,168,.06); }
@@ -295,6 +330,32 @@
   display:inline;
 }
 .meta{ display:none !important; }
+/* Make hymn number and bookmark the same size */
+.num{
+  height:40px;
+  min-width:62px;
+  padding:0 12px;
+  border-radius:12px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  background:rgba(11,95,168,.08);
+  border:1px solid rgba(11,95,168,.18);
+  color:#0b5fa8;
+  font-weight:800;
+  letter-spacing:1px;
+}
+
+
+.bm-btn{
+  height:40px;
+  width:40px;
+  padding:0;
+  border-radius:12px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+}
   </style>
 </head>
 <script>
