@@ -18,10 +18,15 @@
 <!-- Optional: provide a few sizes for best results -->
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Nziyo Dzekereke — Reform Church Zimbabwe</title>
+    <!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
+
   <style>
     :root{--sky-1:#e9f6ff;--sky-2:#cfeeff;--bar-1:#2c78b7;--bar-2:#165a93;--bar-border:#0f4f83;--accent-red:#d61f26;--link:#0b5fa8;--text:#0f172a;--muted:#4b5563;--card:#fff;--card-border:#cfe3f5;--shadow:0 6px 18px rgba(15,23,42,.08);--radius:14px}
     *{box-sizing:border-box}
-    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;color:var(--text);background:linear-gradient(180deg,var(--sky-1),var(--sky-2))}
+    body{margin:0;font-family:"Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;color:var(--text);background:linear-gradient(180deg,var(--sky-1),var(--sky-2))}
     .masthead{position:sticky;top:0;z-index:20;background:linear-gradient(180deg,#f6fbff 0%,#e4f4ff 100%);border-bottom:1px solid rgba(15,79,131,.18)}
     .masthead-inner{max-width:1100px;margin:0 auto;padding:14px 14px 10px;display:flex;align-items:flex-end;gap:16px}
     .brand{display:flex;flex-direction:column;gap:2px;min-width:240px}
@@ -85,12 +90,55 @@
     .top-note .dot{width:8px;height:8px;border-radius:50%;background:var(--accent-red);display:inline-block}
 
     .hymn{margin-top:16px;padding:18px 18px 14px;background:var(--card);border:1px solid var(--card-border);border-radius:var(--radius);box-shadow:var(--shadow);scroll-margin-top:124px}
-    .hymn h2{margin:0 0 8px;display:flex;flex-wrap:wrap;align-items:baseline;gap:10px}
+    .hymn h2{margin:0 0 8px;display:flex;flex-wrap:wrap;align-items:baseline;gap:10px;position:relative;padding-right:48px;}
     .num{display:inline-flex;align-items:center;justify-content:center;padding:6px 10px;border-radius:10px;background:rgba(11,95,168,.08);border:1px solid rgba(11,95,168,.18);color:#0b5fa8;font-weight:800;letter-spacing:1px;min-width:62px}
     .name{font-size:20px;font-weight:800;color:#0b4f86}
     .meta{margin-left:auto;font-size:12px;color:var(--muted)}
-    .verse{margin:10px 0 0;padding:12px 14px;border-left:4px solid rgba(214,31,38,.45);background:rgba(214,31,38,.04);border-radius:12px;line-height:1.6;white-space:pre-wrap}
+    .verse{margin:10px 0 0;
+  padding:12px 14px;
+  border-left:4px solid rgba(214,31,38,.45);
+  background:rgba(214,31,38,.04);
+  border-radius:12px;
+  line-height:1.6;white-space:pre-wrap;
+  font-family:"Libre Baskerville", Georgia, "Times New Roman", serif;
+  font-size:1.05rem;
+}
     .verse .label{display:inline-block;font-weight:800;color:var(--accent-red);margin-bottom:6px;letter-spacing:.4px}
+      /* Auto-numbered stanza layout */
+.verse .vblock{
+  display:grid;
+  grid-template-columns: 2.2em 1fr;
+  column-gap:.6em;
+  margin-top:10px;
+}
+
+.verse .vnum{
+  text-align:right;
+  font-family:"Inter", system-ui, sans-serif;
+  font-weight:800;
+}
+
+.verse .vbody{
+  white-space:pre-wrap;
+  font-family:"Libre Baskerville", Georgia, "Times New Roman", serif;
+}
+.verse .vblock{
+  display:grid;
+  grid-template-columns: 2.2em 1fr;
+  column-gap:.6em;
+  margin-top:10px;
+}
+
+.verse .vnum{
+  text-align:right;
+  font-family:"Inter", system-ui, sans-serif;
+  font-weight:800;
+}
+
+.verse .vbody{
+  white-space:pre-wrap;
+}
+
 
     footer{max-width:1100px;margin:0 auto 26px;padding:0 14px;color:rgba(75,85,99,.9);font-size:12px}
 
@@ -141,6 +189,15 @@
   justify-content:center;
   box-shadow:0 2px 10px rgba(15,23,42,.04);
 }
+/* Fix bookmark position in hymn header */
+.hymn h2 .bm-btn{
+  position:absolute;
+  top:50%;
+  right:0;
+  transform:translateY(-50%);
+  margin-left:0; /* override old margin */
+}
+
 
 .bm-btn:hover{ background:rgba(11,95,168,.06); }
 
@@ -424,28 +481,28 @@
     </h2>
 
     <div class="verse"><span class="label">Verse</span>
-1. Hareruya! tenda-i SHE
+Hareruya! tenda-i SHE
 Mupire Bambo, vakudzei
 Ndivakasika zvose!
 Unyoro hwavo chiimbai,
 Masimba avo rumbidzai,
 Vakudzwe nesu tose.
         
-2. Hareruya! tendai Jesu; 
+Hareruya! tendai Jesu; 
 Wakaburukira kunesu 
 Kurwira vanhu vose, 
 Upenyu hwake wape’su, 
 Wafire zvivi zveduwo, 
 Akudzwe nesu tose. 
-        
-3. Hareruya! noMweyawo. 
+     
+Hareruya! noMweyawo. 
 Chimutedandai saizvozvo, 
 Mumupei mwoyo wose. 
 Unotitungamirira, 
 Achitirayirawo, 
 Akudzwe nesu tose. 
 
-4. She, Bambo, Mwana, Mweyawo! 
+She, Bambo, Mwana, Mweyawo! 
 Tinomuonga-i nesu 
 Nenziyo dzedu dzose, 
 She wedu, tinomukudzai, 
@@ -456,7 +513,7 @@ Mukudzwe nesu tose.</div>
     <section class="hymn" id="hymn-002" data-hymn-number="002" data-hymn-name="Wedenga ndiSHE oga">
       <h2><span class="num">002</span><span class="name">Wedenga ndiSHE oga</span><span class="meta">RCZI</span></h2>
       <div class="verse"><span class="label">Verse</span>
-1. Wedenga ndiSHE oga
+Wedenga ndiSHE oga
 Mumukudzisei mose!
 Hakuno womukunda.
 Wakatiumba tose.
@@ -464,7 +521,7 @@ She wedu ’yu mukuru sei!
 Mibato yokurirwa nei?
 Zvikuru zvose zvake.
 
-2. Ha’chavi nokuguma.
+Ha’chavi nokuguma.
 Usakatanga ndiye;
 Hakuna womuziva,
 Ha’ngaonekwi iye.
@@ -472,7 +529,7 @@ Tinongova vadoko sei,
 Ukuru hwaSHE tiimbei,
 Wakatangira zvose.
 
-3. Nesimba takamutswa,
+Nesimba takamutswa,
 Upenyu takapiwa;
 Mwari wakatisika,
 Naye tinochengetwa;
@@ -484,7 +541,7 @@ Nairo simba rake.</div>
     <section class="hymn" id="hymn-003" data-hymn-number="003" data-hymn-name="Hapana paasi ri">
       <h2><span class="num">003</span><span class="name">Hapana paasi ri</span><span class="meta">RCZI</span></h2>
       <div class="verse"><span class="label">Verse</span>
-1. Hapana paasi ri
+Hapana paasi ri
 Wedenga Bambo SHE;
 Bva posewo patiri
 Ndipo paari SHE!
@@ -493,7 +550,7 @@ Painokwirapo
 Kum’soro pasi pose,
 Wedenga uripo!
 
-2. Hapana zvinhu zvose
+Hapana zvinhu zvose
 Zvinodarikwapo;
 Vanomutenda vose
 Vachachengetwawo!
@@ -502,7 +559,7 @@ Nebundo nairo;
 Nyanguvawo makonye
 Worinda zvose’zvo.
 
-3. Zviri munyika yose
+Zviri munyika yose
 Zviri mumvurawo.
 Nezvinofamba pose
 Zviri mudengamo;
@@ -511,7 +568,7 @@ Uchazvinyimirei?
 Mazuva ose ose
 Zvinochengetwa sei!
 
-4. Bva vana vaSHE Bambo
+Bva vana vaSHE Bambo
 Votaririrwawo;
 Uri parudyi rwavo,
 Nokuruboshweko.
@@ -524,7 +581,7 @@ Wedenga uripo!</div>
     <section class="hymn" id="hymn-004" data-hymn-number="004" data-hymn-name="SHE Wedenga, matsawurwa">
       <h2><span class="num">004</span><span class="name">SHE Wedenga, matsawurwa</span><span class="meta">RCZI</span></h2>
       <div class="verse"><span class="label">Verse</span>
-1. SHE Wedenga, matsawurwa,
+SHE Wedenga, matsawurwa,
 Zvokwadi munoda;
 Makaisvo-shananguka;
 Muri chiedza choga;
@@ -533,7 +590,7 @@ Noushanangwarwa’hwo,
 Tigofunga zvokum’soro,
 Tigoshanangurwa mwoyo!
 
-2. Makaisvo-shananguka,
+Makaisvo-shananguka,
 Munobwinya kwazvo;
 Navatumwa vokudenga
 Vafukidza meso;
@@ -542,7 +599,7 @@ Zvivi zvotikundawo,
 Tinosikoniwa chose
 Mirayiro yenyu yose
 
-3. SHE Wedenga matsawurwa,
+SHE Wedenga matsawurwa,
 Tifanane nemi;
 Tigoda ushanangurwa,
 Tichitiza zvivi
@@ -555,7 +612,7 @@ Nziyo dzavakashanangurwa.</div>
     <section class="hymn" id="hymn-005" data-hymn-number="005" data-hymn-name="Unyoro hwaSHE hwakakura">
       <h2><span class="num">005</span><span class="name">Unyoro hwaSHE hwakakura</span><span class="meta">RCZI</span></h2>
       <div class="verse"><span class="label">Verse</span>
-1. Unyoro hwaSHE hwakakura
+Unyoro hwaSHE hwakakura
 Unoda vanhu vose
 Usingaongi SHE wenyasha
 Ndiwakashata chose!
@@ -564,7 +621,7 @@ Kutenda, nokuonga
 Ndiunosindirangarira
 Neni ndichamufunga
 
-2. Unosindichengeta iye
+Unosindichengeta iye
 Ini ndinositadza
 Unondiperekedza ndiye
 Ini ndinonyangadza
@@ -573,7 +630,7 @@ Mufarowo mukuru
 Ndinositaririrwa hangu
 Nenyasha dzake huru
 
-3. Wedenga, ko handingamudi
+Wedenga, ko handingamudi
 Unyoro hwaSHE wangu
 Ungarayira, ndisinganzwi
 Ko ndingaramba hangu
@@ -586,7 +643,7 @@ Navanhu ndichivada</div>
     <section class="hymn" id="hymn-006" data-hymn-number="006" data-hymn-name="Ukuru hwenyu hwose">
       <h2><span class="num">006</span><span class="name">Ukuru hwenyu hwose</span><span class="meta">RCZI</span></h2>
       <div class="verse"><span class="label">Verse</span>
-1. Ukuru hwenyu hwose
+Ukuru hwenyu hwose
 Hunoonekwa kwose
 Imi Muumbi wedu
 Usiku tinoona
@@ -599,7 +656,7 @@ Rinositiratidza
 Ukuru, uye nyasha
 Unyoro hwaSHE wedu
 
-2. Pavanhu, mhuka, miti
+Pavanhu, mhuka, miti
 Panoonekwa njere
 Ndimi makazviumba
 Muchingozvichengeta
@@ -611,7 +668,7 @@ Namanzwi azvo ose
 Anotiudza tose
 Nemi mukudze Bambo
 
-3. Panzizi napagungwa
+Panzizi napagungwa
 Maware, dutu, mvura
 Tongokanuka zvose
 Misodzi inobuda
@@ -624,7 +681,7 @@ Ndoutiziro hwedu
 Panhamo naparufu
 Bwe redu nhambo dzose
 
-4. Bva nyangwe zuva raenda
+Bva nyangwe zuva raenda
 Nomwedzi ukasviba
 Hatingasha’iwi mwenje
 Kudengako Bwizana
@@ -654,32 +711,32 @@ Nesu tose chigarai.</div>
     <section class="hymn" id="hymn-008" data-hymn-number="008" data-hymn-name="Jehova wondirisa">
       <h2><span class="num">008</span><span class="name">Jehova wondirisa</span><span class="meta">RCZI</span></h2>
       <div class="verse"><span class="label">Verse</span>
-1. Jehova wondirisa
+Jehova wondirisa
 Ndichazoshayiwei
 Unongosindifudza
 Pamvura chena sei
 
-2. Munoponesa mweya
+Munoponesa mweya
 Munondiisazve
 Panzira yakanaka
 Nokuda kwenyu, SHE
 
-3. Handingatongotyi swi
+Handingatongotyi swi
 Nairwo rufuwo
 Mudonzvo womurisi
 Wondinyaradza’po
 
-4. Munongosindigutsa
+Munongosindigutsa
 Munondinwisawo
 Munondipakurira
 Mapfumo aripo
 
-5. Musoro munozodza
+Musoro munozodza
 Munondifadzawo
 Mukombe wakazara
 Nenyasha irimo
 
-6. Bva nyasha dzake dzose
+Bva nyasha dzake dzose
 Dzichandifadza sei
 Ndogara misi yose
 Mumba maiye SHE.</div>
@@ -688,7 +745,7 @@ Mumba maiye SHE.</div>
     <section class="hymn" id="hymn-009" data-hymn-number="009" data-hymn-name="SHE Jehova mundiise">
       <h2><span class="num">009</span><span class="name">SHE Jehova mundiise</span><span class="meta">RCZI</span></h2>
       <div class="verse"><span class="label">Verse</span>
-1. SHE Jehova mundiise
+SHE Jehova mundiise
 Pamakwara enyu
 Mwaya wenyu udzidzise
 Ini, mwana wenyu
@@ -697,7 +754,7 @@ Ndigoziva kuchengeta
 Mirayiro, uye
 Misi yose kumutenda
 
-2. Nyasha dzaSHE dzakakura
+Nyasha dzaSHE dzakakura
 Hadzina kuguma
 Uchadzosa varashika
 Nokuvarayira
@@ -706,7 +763,7 @@ Vanomwoyo wakanaka
 Vanonyengerera
 Uchivaratidza nzira
 
-3. Ndiani unoda iye
+Ndiani unoda iye
 Nokumushumira
 SHE wedenga ndiamene
 Uchamudzidzisa
@@ -715,7 +772,7 @@ Fuma huru yokudenga
 Nhaka ichapiwa
 Vana vake vanomuda
 
-4. Muchengete mweya wangu
+Muchengete mweya wangu
 Musandisvodesa
 Ndimi utiziro hwangu
 Ndichasimutenda
@@ -728,22 +785,22 @@ Nditumirwe raramiso.</div>
     <section class="hymn" id="hymn-010" data-hymn-number="010" data-hymn-name="Wedenga Bambo SHE tendai">
       <h2><span class="num">010</span><span class="name">Wedenga Bambo SHE tendai</span><span class="meta">RCZI</span></h2>
       <div class="verse"><span class="label">Verse</span>
-1. Wedenga Bambo SHE tendai
+Wedenga Bambo SHE tendai
 Unyoro hwake rumbidzai
 Uya-I zvino, swederai
 Namanzwi enyu chiimbai
 
-2. Wedenga wedu ndiye SHE
+Wedenga wedu ndiye SHE
 Wakatiumbawo iye
 Wakatirinda samakwai
 Tichirisiwa zvakadai
 
-3. Muimba yake chipindai
+Muimba yake chipindai
 Mukati mayo chiimbai
 Mumukudzise imomo
 Nomwoyo, nomuromowo
 
-4. Nokuti ndiWedenga SHE
+Nokuti ndiWedenga SHE
 Mukuru pana vose’ye
 Unyoro hwake kunese
 Nenyasha hazviperiwo.</div>
@@ -1980,7 +2037,7 @@ Wakatariwa ka…..re
 Wakazopera; denga, nyika
 Vatadziwo, mufa…..re!
  
-Uyai tigwadamire Jesu -50
+Uyai tigwadamire Jesu
 Musengwa wedu makasenga
 Makaremedzwa na…..wo
 Wedenga wakagamuchira
@@ -1990,7 +2047,7 @@ Ta’tiri kure he…..du
 Nechinjikano taswededzwa
 Yakape’su upe…..nyu!
  
-Uyai tigwadamire Jesu -50
+Uyai tigwadamire Jesu
 Tinodo kusiraramira
 Wedenga naSHE Je…..su
 Tinoda kumuteverera
@@ -7158,16 +7215,14 @@ Hongo zvokwadi.</div>
     <section class="hymn" id="hymn-213" data-hymn-number="213" data-hymn-name="Ngatirumbidze Mwari">
       <h2><span class="num">213</span><span class="name">Ngatirumbidze Mwari</span><span class="meta">RCZI</span></h2>
       <div class="verse"><span class="label">Verse</span>
-1
 Ngatirumbidze Mwari
 Woushe bwokudenga,
 Pam’soro pezvorudo
 Nenyasha dzake huru.
 Wakapa nyika yose
 Mufaro norugare.
-E vanhu, ngatifare.
+Evanhu, ngatifare.
 
-2
 Tigwadamire Bambo
 Vesimba rose rose,
 Tikudze zita ravo
@@ -7176,7 +7231,6 @@ Vanonzwa mikumbiro
 Yavanomushumira
 Nemwoyo inovada.
 
-3
 SHE Jesu Mwana wavo
 Wakada kutirwira
 Nokutidzikinura,
@@ -7185,7 +7239,6 @@ Wakatifira tose,
 Tigova noupenyu
 Husingatongoperi.
 
-4
 E, Mweya wezvokwadi,
 Natsai mwoyo yedu!
 Igova dzimba tsvene
@@ -7199,7 +7252,6 @@ NaJesu SHE zvokwadi.</div>
     <section class="hymn" id="hymn-214" data-hymn-number="214" data-hymn-name="Ndichamukudza">
       <h2><span class="num">214</span><span class="name">Ndichamukudza</span><span class="meta">RCZI</span></h2>
       <div class="verse"><span class="label">Verse</span>
-1
 Ndichamukudza,
 SHE wedenga wangu.
 Ndichakudza imi
@@ -7210,19 +7262,16 @@ Chikudzai, Jehova, Bambo SHE;
 Akudzwe, akudzwe
 Namarudzi ose!
 
-2
 Zita renyu guru
 Ndicharirumbidza.
 Ndichafungisisa
 Nyasha dzenyu huru.
 
-3
 Rudzi runoreva
 Kuno rumwe rudzi
 Kurungama kwake
 SHE wesimba rose.
 
-4
 Vanodanidzira
 Zvokwadi kwamuri,
 Muchazovarwira
@@ -7233,7 +7282,6 @@ Muri pedo navo.</div>
     <section class="hymn" id="hymn-215" data-hymn-number="215" data-hymn-name="Chigadzirai nzira">
       <h2><span class="num">215</span><span class="name">Chigadzirai nzira</span><span class="meta">RCZI</span></h2>
       <div class="verse"><span class="label">Verse</span>
-1
 Chigadzirai nzira
 Irungamire
 SHE wakarehwa kare
@@ -7243,7 +7291,6 @@ Weimba yeDavide
 Kukudzwe wouya
 Muzita raSHE.
 
-2
 Masuo afadzirwe
 SHE wokubwinya.
 Marudzi ogarira
@@ -7253,7 +7300,6 @@ Panzwikwe pose pose:
 Akudzwe wouya
 Muzita raSHE!”
 
-3
 Chigaro chake ndicho
 ChaBambo vake.
 Bworu do nechiedza
@@ -7263,7 +7309,6 @@ Wenyasha norugare.
 Kukudzwe wouya
 Muzita raSHE!
 
-4
 Tembere yaSalema,
 Navapirisi,
 Noushe hwavo hwose
@@ -7278,7 +7323,6 @@ Muzita raSHE!</div>
     <section class="hymn" id="hymn-216" data-hymn-number="216" data-hymn-name="Asvika mangwanana">
       <h2><span class="num">216</span><span class="name">Asvika mangwanana</span><span class="meta">RCZI</span></h2>
       <div class="verse"><span class="label">Verse</span>
-1
 Asvika mangwanana
 Ezuva rakanaka
 Rakararirwa kare
@@ -7291,7 +7335,6 @@ Unganai,
 Murumbidze
 She mukuru wavenyika!
 
-2
 WaMwari wava munhu,
 Tigoswedera tose
 Kwaari tichifara,
@@ -7304,7 +7347,6 @@ Rudo rwake,
 Vagodana,
 Vachitsvaka zvokudenga.
 
-3
 Uchazosvimha sesu,
 Achinzwa nhamo dzedu,
 Nokudotitsigira,
@@ -7317,7 +7359,6 @@ Tigowana
 Zvorugare,
 Nokuzarurirwa denga.
 
-4
 Wauya kutirwira,
 Rigosavira zuva
 Renyasha dzake huru.
@@ -7335,37 +7376,31 @@ Kwaticafanana naye.</div>
     <section class="hymn" id="hymn-217" data-hymn-number="217" data-hymn-name="Vanhu taponeriwa">
       <h2><span class="num">217</span><span class="name">Vanhu taponeriwa</span><span class="meta">RCZI</span></h2>
       <div class="verse"><span class="label">Verse</span>
-1
 Vanhu, taponerwa
 Muchengeti wedu,
 Mai vake mhandara,
 Iyo yakachena.
 
-2
 Wakaita Mweya
 Nenji guru pano:
 Shoko dzvene raSHE
 Rava nyama sesu.
 
-3
 Iye wakaberekwa
 Pasina kutadza.
 Unosenga zvivi
 Zvedu, zvavatadzi.
 
-4
 Wabvawo kudenga
 Norugare rwake.
 M’faro unovapa
 Vose vanotenda.
 
-5
 Une simba guru
 Rokubata ushe,
 Uchakunda pfumo,
 Rufu rwakaipa.
 
-6
 Ngaaongwe Kristu
 Wakatiraramisa.
 Shoko rake chinzwai
@@ -7376,21 +7411,18 @@ Pamatiri ose!</div>
     <section class="hymn" id="hymn-218" data-hymn-number="218" data-hymn-name="Tinofara-i tinoimbire-i">
       <h2><span class="num">218</span><span class="name">Tinofara-i tinoimbire-i</span><span class="meta">RCZI</span></h2>
       <div class="verse"><span class="label">Verse</span>
-1
 Tinofara-i tinoimbire-i
 Zuva rino raJesu?
 Nyika yarashika,
 Kristu waponwa.
 Ngatifarisise, vaKristu.
 
-2
 Tinofara-i tinoimbire-i
 Zuva rino raJesu?
 Kristu SHE wasvika
 Kuzorwira nyika.
 Ngatifarisise, vaKristu.
 
-3
 Tinofara-i tinoimbire-i
 Zuva rino raJesu?
 Vanhu navatumwa
@@ -7402,7 +7434,6 @@ Negatifarisise, vaKristu.</div>
     <section class="hymn" id="hymn-219" data-hymn-number="219" data-hymn-name="Mwoyo farira">
       <h2><span class="num">219</span><span class="name">Mwoyo farira</span><span class="meta">RCZI</span></h2>
       <div class="verse"><span class="label">Verse</span>
-1
 Mwoyo, farira,
 Nyika nokudenga
 Pano parwendo rwako.
@@ -7410,7 +7441,6 @@ Zvakanaka
 Zvose zvinobva
 Uko kum’soro kwaBambo.
 
-2
 Dzinosiuya
 Nhambo, nokuenda
 Vanhu vachiteverana.
@@ -7418,7 +7448,6 @@ Rwiyo rwedenga
 Runosinzwa,
 Runotifadza parwendo.
 
-3
 Rwakayambirwa
 Navatumwa vaSHE
 Vachiimbira varisi:
@@ -7431,7 +7460,6 @@ Kristu wazvarwa panyika.”</div>
     <section class="hymn" id="hymn-220" data-hymn-number="220" data-hymn-name="esu tifadzei nhasi">
       <h2><span class="num">220</span><span class="name">esu tifadzei nhasi</span><span class="meta">RCZI</span></h2>
       <div class="verse"><span class="label">Verse</span>
-1
 Jesu, tifadzei nhasi,
 Gore dzva rasvika,
 Muvandudze kuda kwedu,
@@ -7441,7 +7469,6 @@ Imba yenyu tsvene,
 Tigogara tichinat­swa
 Nomufaro wezvenyasha.
 
-2
 Ngandirichengete nhaka
 Shoko renyu Jesu,
 Ndigofamba mufambire
@@ -7451,7 +7478,6 @@ Nokunatsa vanhu,
 Ndichitsvaka zvoutsvene
 Nokungwara zvinoteya.
 
-3
 Jesu, dogarai neni
 Ndigofara hangu.
 Jesu mundipei mwoyo
@@ -7461,7 +7487,6 @@ Mweya nomuviri.
 Jesu, ndimi wandinoda
 Munodzima nezvirwadzo.
 
-4
 Jesu, ngandinatso­pedza
 Gore dzva ratanga.
 Ndirimo muzvanza zvenyu
@@ -7476,7 +7501,6 @@ Pachifuva chenyu, Jesu.</div>
     <section class="hymn" id="hymn-221" data-hymn-number="221" data-hymn-name="Rimwe gore rapfuura">
       <h2><span class="num">221</span><span class="name">Rimwe gore rapfuura</span><span class="meta">RCZI</span></h2>
       <div class="verse"><span class="label">Verse</span>
-1
 Rimwe gore rapfuura,
 Gore dzva rauyazve.
 Bva mazuva aro, hama,
@@ -7484,7 +7508,6 @@ Achazotipeiko?
 Achafadze’su here?
 Unoziva ndiye SHE.
 
-2
 Iye wakativanzira
 Zviri mberi kwedu’ko.
 Bva unoda kutarira
@@ -7492,7 +7515,6 @@ Isu misi yose.
 Nousiku titsunge,
 SHE unesu, tichatyei?
 
-3
 Masikati nousiku
 Iko nhaka samakei
 M’rindi wedu haavati,
@@ -7500,7 +7522,6 @@ Ini ndichazotsvakei?
 Ndiye wagadzirawo
 Pandichafambiswa ’po.
 
-4
 Pamufaro napanhamo
 Ndingamira pana SHE
 Nhambo yopfuura mberi
@@ -7526,7 +7547,6 @@ Tipeiwo rugare, Jesu!</div>
     <section class="hymn" id="hymn-223" data-hymn-number="223" data-hymn-name="SHE wangu wakarobwa">
       <h2><span class="num">223</span><span class="name">SHE wangu wakarobwa</span><span class="meta">RCZI</span></h2>
       <div class="verse"><span class="label">Verse</span>
-1
 SHE wangu wakarobwa
 Nokutambudzwa,
 Musoro wakabayiwa
@@ -7536,7 +7556,6 @@ Muchakudzwa,
 Bva zvino navatadzi
 Munosekiwa.
 
-2
 Pamberi penyu, Jesu,
 Ndowira pasi,
 Ndichikumbira nyasha,
@@ -7546,7 +7565,6 @@ Chachenuruka,
 Meso akasibwinya
 Anokaruka.
 
-3
 She, munosenga zvino
 Matadzo angu.
 Ndaifambira ini
@@ -7556,7 +7574,6 @@ Ndinotizira
 Kwenyu Muchengeti,
 Muchindifira.
 
-4
 SHE Jesu mukudziwe
 Makandirwira.
 Mundipewo zororo,
@@ -7571,19 +7588,16 @@ Mamuri ndifewo</div>
     <section class="hymn" id="hymn-224" data-hymn-number="224" data-hymn-name="Wafire nyika Jesu SHE">
       <h2><span class="num">224</span><span class="name">Wafire nyika Jesu SHE</span><span class="meta">RCZI</span></h2>
       <div class="verse"><span class="label">Verse</span>
-1
 Wafire nyika Jesu SHE
 Meso apodzwe, ndione.
 Wakabayirwa Gorogota’ko,
 Ndizikinurwe nemiwo.
 
-2
 Runoshamisa rudo ’rwu.
 Hapana munhu unarwo,
 Ndaponesiwa naye SHE,
 Ngandive wake muushe.
 
-3
 Ngandive mwana wenyu, SHE.
 Ndisesedzei zvokwadi,
 Ndigofarira murudo
@@ -7594,7 +7608,6 @@ Kumuvigira upenyu.</div>
     <section class="hymn" id="hymn-225" data-hymn-number="225" data-hymn-name="Wafa M’ponesi pachinjikano">
       <h2><span class="num">225</span><span class="name">Wafa M’ponesi pachinjikano</span><span class="meta">RCZI</span></h2>
       <div class="verse"><span class="label">Verse</span>
-1
 Wafa M’ponesi pachinjikano,
 Ndini mutadzi ndafirw a’ naye
 Ndinosukiwa neropa rake.
@@ -7606,19 +7619,16 @@ Ndakawana ushe
 Unganatsiwa mwoyo wangu,
 Ndakawana ushe.
 
-2
 Ndicho chidziva cheropa rake,
 Bwose utadzi bwosukwa nacho.
 Machiri ungandisuka Jesu.
 Ndakawana ushe.
 
-3
 Ndakapon eswa ndokat y amara.
 Jesu ugere mumwoyo mangu.
 Wakapindira pachinjikano.
 Ndakawana ushe.
 
-4
 Iwe mutadzi, uuye zvino,
 Uise mweya paM’ponesi.
 Uya ungure muropa rake,
@@ -7635,7 +7645,6 @@ Ungawana ushe.</div>
     <section class="hymn" id="hymn-226" data-hymn-number="226" data-hymn-name="Murukai muimbirei">
       <h2><span class="num">226</span><span class="name">Murukai muimbirei</span><span class="meta">RCZI</span></h2>
       <div class="verse"><span class="label">Verse</span>
-1
 Murukai, muimbirei
 Mhare yapadanda!
 Yatirwira nokufira
@@ -7643,7 +7652,6 @@ Sebwizana nyoro.
 Akamuka nokubwinya.
 Achikunda rufu.
 
-2
 Wakatipa, takapiwa
 Kurungama kwose
 Wakabvisa nhamo dzedu
@@ -7651,7 +7659,6 @@ Nokusingaperi.
 Dzikinuro nedzimuro
 Wakatiwanira.
 
-3
 Takapodzwa noMuzodzwa
 Wakapwanya nyoka.
 Zviro rufu neGehena
@@ -7659,7 +7666,6 @@ Zvi chapera simba
 Wakamuka, unobata
 Ushe huchakunda.
 
-4
 Vatsva pamwe navakuru
 Varumbidze Bambo.
 Mwana une nyasha huru
@@ -7672,7 +7678,6 @@ Isu kumufaro!</div>
     <section class="hymn" id="hymn-227" data-hymn-number="227" data-hymn-name="Ndinomuona Jesu">
       <h2><span class="num">227</span><span class="name">Ndinomuona Jesu</span><span class="meta">RCZI</span></h2>
       <div class="verse"><span class="label">Verse</span>
-1
 Ndinomuona Jesu
 Mokwina pakubwinya,
 Bva ini ndichi mweni
@@ -7680,7 +7685,6 @@ Panyika yokuchinya.
 Ndofamba ndichishuva
 Kutama rimwe zuva.
 
-2
 Bva kana ndichishuva
 Ndinoti: “Dotarirai
 Zvomwana wenyu, Mambo,
@@ -7689,7 +7693,6 @@ Ndokunzwa inzwi:
 “Mwanangu,
 Ndinokuziva hangu.”
 
-3
 Ipapo ndinoona
 Zvenyika yakanaka,
 Pandichagara nemi,
@@ -7697,7 +7700,6 @@ Ndikabvisirwa mhaka,
 Ndina vatsvene venyu
 Kumusha woupenyu.
 
-4
 Hakune rima uko
 Nenhamo nokurwara
 Bva zvose zvakanaka
@@ -7705,7 +7707,6 @@ Kubwinya nokufara
 Ngative vobwo nesu
 Kudenga kuna Jesu.
 
-5
 Zvamak aenda, Jesu,
 Muchadzokera pano.
 Tipei tigofamba
@@ -7718,7 +7719,6 @@ Tambofukidzwa hazu.</div>
     <section class="hymn" id="hymn-228" data-hymn-number="228" data-hymn-name="Jesu Kristu ndiSHE wedu">
       <h2><span class="num">228</span><span class="name">Jesu Kristu ndiSHE wedu</span><span class="meta">RCZI</span></h2>
       <div class="verse"><span class="label">Verse</span>
-1
 Jesu Kristu ndiSHE wedu,
 Ngatimutevere hedu,
 Timufugamire.
@@ -7727,7 +7727,6 @@ Namarimi abvumire
 Kuti Jesu ndiye SHE,
 Kuti Jesu ndiye SHE.
 
-2
 Uyu nyangwe afanana
 NoWedenga, ari Mwana,
 Haazakatsvaka
@@ -7736,7 +7735,6 @@ Ave nokubwinya pano.
 Wakaramba ’zvezvi,
 Wakaramba ’zvezvi.
 
-3
 Wakaita somuranda,
 Achiwirwa nemiedzo.
 Nokuona nhamo.
@@ -7745,7 +7743,6 @@ Kuti ashumire isu
 Pataikoniwa ’po
 Pataikoniwa ’po
 
-4
 Wakazvidzwa navo vose,
 Achingoterera pose,
 Kusvikira rufu.
@@ -7754,7 +7751,6 @@ Rwavatadzi paGorgota,
 Tigowana nyasha,
 Tigowana nyasha.
 
-5
 Saka iye wamurudzwa
 NoWedenga, nokukudzwa.
 Ndokukurumbidzwa.
@@ -7763,7 +7759,6 @@ Pamazita mamwe ose,
 Tigonatswa naro,
 Tigonatswa naro.
 
-6
 Ngatimuimbire hedu,
 Jesu Kristu ndiSHE wedu,
 Timufugamire.
@@ -7777,7 +7772,6 @@ Kuti Jesu ndiye SHE.</div>
     <section class="hymn" id="hymn-229" data-hymn-number="229" data-hymn-name="Munhu ha’ngawani rugare">
       <h2><span class="num">229</span><span class="name">Munhu ha’ngawani rugare</span><span class="meta">RCZI</span></h2>
       <div class="verse"><span class="label">Verse</span>
-1
 Munhu ha’ngawani rugare
 Asingatsvaki nesimba
 Hama, nga urwire upenyu
@@ -7787,7 +7781,6 @@ Nzira inozova nhete iyo.
 Utsungise mwoyo, urwirewo
 Ugosarasha upenyu.
 
-2
 Denga routsvene robwinya,
 Ngaurishingairire.
 Ichazovaima korona
@@ -7797,7 +7790,6 @@ Uzvigadzirire kutong eswa.
 Hazu dzakachena ufuke’dzo
 Kuti upinde mutambo.
 
-3
 Haungazopindi kudenga
 Usingatendi zvokwadi.
 Tenda, iwe, shoko rarebwa
@@ -7807,7 +7799,6 @@ Usino kutenda kuna Jesu.
 Saka tendeuka, terera SHE,
 Nhambo yorwisa kupera!
 
-4
 SHE wodana vose venyika:
 “Vanhu rwirai upenyu!”
 Ungawana fuma dzenyasha,
@@ -7822,7 +7813,6 @@ Ugozofara wamuka!</div>
     <section class="hymn" id="hymn-230" data-hymn-number="230" data-hymn-name="Tichaendako kuna’ni tigova norugare?">
       <h2><span class="num">230</span><span class="name">Tichaendako kuna’ni tigova norugare?</span><span class="meta">RCZI</span></h2>
       <div class="verse"><span class="label">Verse</span>
-1
 Tichaendako kuna’ni tigova
 norugare?
 Kune shoko roupenyu, SHE
@@ -7833,7 +7823,6 @@ yose, SHE.
 Tirumbidze imi moga pano
 nokudenga ’ko.
 
-2
 Tichaendako kuna’ni, tigowana
 zororo?
 Kuno musha unobwinya,
@@ -7849,7 +7838,6 @@ nokudenga ’ko.</div>
     <section class="hymn" id="hymn-231" data-hymn-number="231" data-hymn-name="Jesu chindinzwa">
       <h2><span class="num">231</span><span class="name">Jesu chindinzwa</span><span class="meta">RCZI</span></h2>
       <div class="verse"><span class="label">Verse</span>
-1
 Jesu, chindinzwa,
 Ndichimukumbirai
 Mhaka makaripa
@@ -7859,7 +7847,6 @@ Mundikanganwire.
 Jesu Muponesi,
 Ndinovimba nemi.
 
-2
 Jesu ndifadzei,
 Ndichinyengetera!
 Ngamundipe nyasha,
@@ -7869,7 +7856,6 @@ Zvamakavimbisa
 Jesu Muponesi,
 Mundipafadze!
 
-3
 Jesu, chindidai.
 Ndive wenyu chose!
 Musandisiya,
@@ -7879,7 +7865,6 @@ Nechiedza chenyu,
 Jesu Muponesi,
 Mundiite wenyu!
 
-4
 Jesu, ndimungei!
 Mungandichengeta
 Kusvikira nhambo
@@ -7894,7 +7879,6 @@ Musino kupera!</div>
     <section class="hymn" id="hymn-232" data-hymn-number="232" data-hymn-name="Handingatongorukanganwi">
       <h2><span class="num">232</span><span class="name">Handingatongorukanganwi</span><span class="meta">RCZI</span></h2>
       <div class="verse"><span class="label">Verse</span>
-1
 Handingatongorukanganwi,
 SHE Jesu, rudo rwenyu,
 Rwakandikweva kundifira,
@@ -7902,7 +7886,6 @@ Mufire zvivi zvangu.
 Ngandimukudze Jesu
 Nezita renyu nyoro.
 
-2
 Ndinoda, Jesu, kumuonga
 Nokumudisa kwazvo,
 Mugova danha rangu rose,
@@ -7910,7 +7893,6 @@ Ndigare ndiri wenyu.
 Ngandichivimba, Jesu,
 Nezita renyu nyoro.
 
-3
 Napandichawirira hangu,
 Ngandife, muchi neni.
 Murwiri wangu une simba,
@@ -7923,7 +7905,6 @@ Nezita renyu nyoro.</div>
     <section class="hymn" id="hymn-233" data-hymn-number="233" data-hymn-name="Hama yangu yakanaka">
       <h2><span class="num">233</span><span class="name">Hama yangu yakanaka</span><span class="meta">RCZI</span></h2>
       <div class="verse"><span class="label">Verse</span>
-1
 Hama yangu yakanaka
 Ndiye Jesu Kristu SHE
 Ko, ndichamusiya hangu,
@@ -7933,7 +7914,6 @@ Naye wandinoda, SHE.
 Mwoyo, fambidzana naye
 Unokuda, umude.
 
-2
 Mhaka ndingapiwa nani?
 Kristu wakafiren i.
 Wakamutswa pavakafa.
@@ -7943,7 +7923,6 @@ Vakasanangurwawo,
 Iye unorwira ini,
 Kuparadz aniswa tsvo!
 
-3
 Ndinotenda kuti njodzi,
 Nzara, nayo nhamowo.
 Kana m’nondo nokudzingwa,
@@ -7958,7 +7937,6 @@ Ruri muna Kristu SHE.</div>
     <section class="hymn" id="hymn-234" data-hymn-number="234" data-hymn-name="SHE Murisi wangu">
       <h2><span class="num">234</span><span class="name">SHE Murisi wangu</span><span class="meta">RCZI</span></h2>
       <div class="verse"><span class="label">Verse</span>
-1
 SHE Murisi wangu
 Waka isvonaka,
 Wondipavhurira,
@@ -7968,7 +7946,6 @@ Yokupedza nyota,
 Nyange namafuro
 Pandinonzwa nzara.
 
-2
 Haangatenderi
 Kuti ndirashike.
 Unondifambisa
@@ -7978,7 +7955,6 @@ Napanhamo dzose,
 Nyange napakufa
 Handingatyi une ’ni.
 
-3
 Shoko rake svimbo
 Inondinyaradza.
 Pandinovengiwa
@@ -7993,7 +7969,6 @@ Mumba maJehovha.</div>
     <section class="hymn" id="hymn-235" data-hymn-number="235" data-hymn-name="Jesu She, Mufudzi wangu">
       <h2><span class="num">235</span><span class="name">Jesu She, Mufudzi wangu</span><span class="meta">RCZI</span></h2>
       <div class="verse"><span class="label">Verse</span>
-1
 Jesu She, Mufudzi wangu
 NoMukomboreri.
 Dzinozipa nyasha dzenyu
@@ -8001,7 +7976,6 @@ Nenzwi renyu nyoro.
 Dogarai neni,
 Ndive, Jesu, nemi!
 
-2
 Jesu zita renyu dzvene
 Rivambise zvose,
 Ndigobvidza kuzvipedza.
@@ -8009,7 +7983,6 @@ Sezvakafanira.
 Dogarai neni,
 Ndive, Jesu, nemi!
 
-3
 Donatsai nokufunga,
 Nokureva kwangu.
 Ndibatire zvoupenyu
@@ -8017,7 +7990,6 @@ Husingazoperi.
 Dogarai neni,
 Ndive, Jesu, nemi!
 
-4
 Ndichienda kundovata
 Ngamundichengete,
 Ndigomuka muchi pedo,
@@ -8025,7 +7997,6 @@ Ndokuongwa neni.
 Dogarai neni,
 Ndive, Jesu, nemi!
 
-5
 Zuva rangu richavira
 Pakunhoya kwangu.
 Bva ndipei, ndirarame
@@ -8038,25 +8009,21 @@ Ndive Jesu nemi!</div>
     <section class="hymn" id="hymn-236" data-hymn-number="236" data-hymn-name="Munyasha dzenyu">
       <h2><span class="num">236</span><span class="name">Munyasha dzenyu</span><span class="meta">RCZI</span></h2>
       <div class="verse"><span class="label">Verse</span>
-1
 Munyasha dzenyu, Bambo
 Ndinozviisa hangu.
 Nezvose zvandinazvo,
 Ngamundigamuchire.
 
-2
 Muviri noupenyu,
 Nomweyawo ndezvenyu.
 Dochengentai zvose,
 Ndigosakuvadzwa.
 
-3
 Munosifadza mwoyo,
 Nokunyaradza mweya,
 Pandinoona nhamo,
 Nokusakwana kwangu.
 
-4
 Ndovimba nemi, Bambo.
 Dovai neni, ndiye
 Pamuri, ndiye nhaka
@@ -8067,31 +8034,26 @@ Youshe hwakanaka.</div>
     <section class="hymn" id="hymn-237" data-hymn-number="237" data-hymn-name="Boka ravanana vaSHE">
       <h2><span class="num">237</span><span class="name">(ADD HYMN TITLE HERE)</span><span class="meta">RCZI</span></h2>
       <div class="verse"><span class="label">Verse</span>
-1
 Boka ravanana vaSHE
 Rinogara zvakanaka.
 Kune shiri mudendere
 Nenyeredzi pakudenga.
 
-2
 SHE unovarisa vose
 Pamafuro ebumhudza,
 Vanobatwa nounyoro,
 Vari mumaoko ake.
 
-3
 Nyange nhamo, nyange fadzo
 Zvichakona kuvabvuta
 Mumaoko omurisi,
 Unoziva dzingo ravo.
 
-4
 Usingadzirashi nzvidya
 Unotiwanira tose
 Zvokufuka nezvokudya,
 Unofadza vanochema.
 
-5
 Vanoramba vari Bambo
 Vanotipa nokutora.
 Bva vanoda pana zvose
@@ -8102,7 +8064,6 @@ Kuvanatsa vana vavo.</div>
     <section class="hymn" id="hymn-238" data-hymn-number="238" data-hymn-name="Ndomurudzira meso">
       <h2><span class="num">238</span><span class="name">Ndomurudzira meso</span><span class="meta">RCZI</span></h2>
       <div class="verse"><span class="label">Verse</span>
-1
 Ndomurudzira meso
 Kugomo raSHE
 Chiedza nebetsero
@@ -8112,7 +8073,6 @@ Ndichikumbira.
 SHE wakaita zvose
 Wondibetsera.
 
-2
 Ha’regi shoka dzangu
 Kutedzemuka.
 Uneni achirinda
@@ -8122,7 +8082,6 @@ Ndisakuvadza,
 Achinditaririra
 Napamibato.
 
-3
 Worwira mweya wangu
 Pazvinorwadza
 Napana madambudzo
@@ -8137,7 +8096,6 @@ Vanoda Mwari.</div>
     <section class="hymn" id="hymn-239" data-hymn-number="239" data-hymn-name="Ngaarumbidzwe Mwari">
       <h2><span class="num">239</span><span class="name">Ngaarumbidzwe Mwari</span><span class="meta">RCZI</span></h2>
       <div class="verse"><span class="label">Verse</span>
-1
 Ngaarumbidzwe Mwari
 Watimutsira
 Kuona rimwe zuva
@@ -8147,7 +8105,6 @@ Samamwe ose,
 Tifunge naizvozvo
 Kukosha kwaro.
 
-2
 Ngatichifungisisa
 Zvokuda kwaSHE.
 Tibate tichikuno,
@@ -8157,7 +8114,6 @@ Mumwoyo medu,
 Atove madekwana
 Okusabata.
 
-3
 Tibetserai vose
 Nokufadza.
 Tisangofunga zvedu
@@ -8167,7 +8123,6 @@ Nokukuita
 Ndokushumira Mwari,
 Nokumupira.
 
-4
 Muranda unobata
 Achivimbika
 Ucharopafadzwa
@@ -8177,7 +8132,6 @@ Usakanzwika,
 Wavakagadzirirwa
 Vanoda Mwari.
 
-5
 Tiwedzerei simba
 Rokumbotsvaka
 Zvoushe hwokudenga
@@ -8192,7 +8146,6 @@ Mazuva ose.</div>
     <section class="hymn" id="hymn-240" data-hymn-number="240" data-hymn-name="Mumwoyo ndoshuvira">
       <h2><span class="num">240</span><span class="name">Mumwoyo ndoshuvira</span><span class="meta">RCZI</span></h2>
       <div class="verse"><span class="label">Verse</span>
-1
 Mumwoyo ndoshuvira
 Jerusarema.
 Ndomusha
@@ -8202,7 +8155,6 @@ Urombo hwangu
 Mumwoyo ndoshuvira
 Jerusarema.
 
-2
 Bva pano padenhere
 Iripi nzira
 Yoenda
@@ -8212,7 +8164,6 @@ Panjodzi zhinji.
 E, pano padenhere
 Iripi nzira?
 
-3
 Unondiiradzira
 NdiJesu wangu.
 Saiye
@@ -8222,7 +8173,6 @@ Ndomutevera
 Unoratidza nzira
 NdiJesu wangu.
 
-4
 Onai, ndokubwiya
 Kweguta raSHE!
 Ndasvika
@@ -8232,7 +8182,6 @@ Zvotyisa pano.
 Onai, ndokubwinya
 Kweguta raSHE.
 
-5
 Muzita raSHE Jesu
 Ndichazokunda.
 Neniwo
@@ -8247,39 +8196,30 @@ Ndichazokunda.</div>
     <section class="hymn" id="hymn-241" data-hymn-number="241" data-hymn-name="Vafara vose vachena pamweya">
       <h2><span class="num">241</span><span class="name">(ADD HYMN TITLE HERE)</span><span class="meta">RCZI</span></h2>
       <div class="verse"><span class="label">Verse</span>
-1
 Vafare vose vachena pamweya,
 Ushe ndehwavo pano napapo.
 
-2
 Vafare vose vochema zvechivi
 Vachanyaradzwa noMuchengeti.
 
-3
 Vafare vose venzara nenyota
 Yokurungama, vachagutiswa.
 
-4
 Vafare vose ivavo venyasha,
 Vachaitirwa nyasha zvikuru.
 
-5
 Vafare vose vanyoro pamwoyo,
 Vachazogara nhaka yenyika.
 
-6
 Vafare vose vomwoyo muchena,
 Vachazoona Wedenga zvokwadi.
 
-7
 Vafare vose vorwira rugare,
 Vachaidzwa vana vaBambo.
 
-8
 Vafarisise vose votsunga panhamo,
 Vachitambudzwa navakashata.
 
-9
 Fuma dzedenga ndedzavo vadero,
 Vachava ’papo pana SHE Jesu.</div>
     </section>
@@ -8841,29 +8781,29 @@ Jesu, ndinomuteverai.</div>
     <section class="hymn" id="hymn-257" data-hymn-number="257" data-hymn-name="Uchaitei naJesu?">
       <h2><span class="num">257</span><span class="name">Uchaitei naJesu?</span><span class="meta">RCZI</span></h2>
       <div class="verse"><span class="label">Verse</span>
-1. Uchaitei naJesu?
+Uchaitei naJesu?
 Uchaitei Naye?
 Pindurai iko zvino!
 Haangamurambidzi.
 
-2. Uchaitei naJesu?
+Uchaitei naJesu?
 Pindurai iko zvino!
 Wamuramba?
 Watenda here?
 Haangamurambidzi
 
-3. Ivai nomwoyo mumwe
+Ivai nomwoyo mumwe
 Shanangurai zvino!
 Chiramba kana kutenda;
 Shanangurai zvino!
           
-4. Uchaitei naJesu?
+Uchaitei naJesu?
 Pindurai iko zvino!
 Wamuramba?
 Watenda here?
 Haangamurambidzi
 
-5. Jesu wakazvipa chose,
+Jesu wakazvipa chose,
 Unomuramba here?
 Chitenda kana kuramba;
 Shanangurai zvino!</div>
@@ -8873,22 +8813,22 @@ Shanangurai zvino!</div>
     <section class="hymn" id="hymn-258" data-hymn-number="258" data-hymn-name="Ndakanga ndiri kure naSHE">
       <h2><span class="num">258</span><span class="name">Ndakanga ndiri kure naSHE</span><span class="meta">RCZI</span></h2>
       <div class="verse"><span class="label">Verse</span>
-1. Ndakanga ndiri kure naSHE
+Ndakanga ndiri kure naSHE
 Ndigere murima,
 Chiedza chikandivheneka,
 Mumwoyo mapinda SHE.
 
-2. SHE mumwoyo mangu, 
+SHE mumwoyo mangu, 
 SHE mumwoyo mangu, 
 Nenji roruponeso,
 ISHE mumwoyo mangu.
 
-3. Ndoshuva sei kutodza ISHE
+Ndoshuva sei kutodza ISHE
 Ndifanane naye;
 Ndorangarira misi yose
 ISHE mumwoyo mangu
 
-4. SHE mumwoyo mangu, 
+SHE mumwoyo mangu, 
 SHE mumwoyo mangu, 
 Nenji roruponeso,
 ISHE mumwoyo mangu.</div>
@@ -8898,22 +8838,22 @@ ISHE mumwoyo mangu.</div>
     <section class="hymn" id="hymn-259" data-hymn-number="259" data-hymn-name="PaGorgota pakafira">
       <h2><span class="num">259</span><span class="name">PaGorgota Pakafira</span><span class="meta">RCZI</span></h2>
       <div class="verse"><span class="label">Verse</span>
-1. PaGorgota pakafira
+PaGorgota pakafira
 Muponesi zvivi zvangu; 
 Ropa rake rakaripa,
 Rakabvisa mhosva dzangu.
 
-2. PaGorgota, nyasha
+PaGorgota, nyasha
 SHE Jesu wakafireni.
 PaGorgota, nyasha huru, 
 SHE Jesu wakafire 'ni.
 
-3. Ishe wangu ndotenda nei?
+Ishe wangu ndotenda nei?
 Makarasha upenyu sei! 
 Rudo rwenyu rwakakura!
 Makazvipa kuvatadzi.
 
-4. PaGorgota, nyasha
+PaGorgota, nyasha
 SHE Jesu wakafireni.
 PaGorgota, nyasha huru, 
 SHE Jesu wakafire 'ni.</div>
@@ -9021,19 +8961,16 @@ Toti (Uyai mose) x3 kuna Jesu.</div>
 <section class="hymn" id="hymn-265" data-hymn-number="265" data-hymn-name="Mosi, kumura tsapata dzako">
       <h2><span class="num">265</span><span class="name">Mosi, kumura tsapata dzako</span><span class="meta">RCZI</span></h2>
       <div class="verse"><span class="label">Verse</span>
-1
 Mosesi, kumura tsapata dzako,
 Nokuti nzvimbo yauri itsvene.
 Enda wotora vana valsraeri,
 Ndini ndadaro SHE wako.
 
-2
 Mosesi, kumura tsapata dzako,
 Nokuti nzvimbo yauri itsvene.
 Shamwari titerere inzwi raMwari,
 Iye unotitungamira.
 
-3
 Mosesi, kumura tsapata dzako,
 Nokuti nzvimbo yauri itsvene.
 SHE unosunungura unomutenda,
@@ -9043,13 +8980,11 @@ Utende Jesu shamwari.</div>
 <section class="hymn" id="hymn-266" data-hymn-number="266" data-hymn-name="Jehovah wakati, Abrahama">
       <h2><span class="num">266</span><span class="name">Jehovah wakati, Abrahama</span><span class="meta">RCZI</span></h2>
       <div class="verse"><span class="label">Verse</span>
-1
 Jehovha wakati, Abrahama,
 Chienda kugomo reMoriya,
 Uchitora Isaka mwana wako,
 Mwana mumwe chete.
 
-2
 Wakafamba mazuvа matatu,
 Vakaona gomo reMoriya.
 Vakasvika ipapo pagomo,
@@ -9061,13 +8996,11 @@ Nebangawo tinaro,
 Ko gwayana rechibayiro ripi?
 Zvinoiswa naSHE.
 
-3
 Vakaronga mabwe eartari
 Vakaisa huni pamusoro.
 Wakaudza Isaka mwana wake
 Kuti iwe ndiwe chibayiro.
 
-4
 Bambo zvino vakasunga mwana.
 Mwari akati regedza mwana
 Tarira kwakakufuratira,
@@ -9077,43 +9010,33 @@ Gondohwe raivapo.</div>
 <section class="hymn" id="hymn-267" data-hymn-number="267" data-hymn-name="Jona enda kuNineve">
       <h2><span class="num">267</span><span class="name">Jona enda kuNineve</span><span class="meta">RCZI</span></h2>
       <div class="verse"><span class="label">Verse</span>
-1
 Jona enda kuNineve,
 Ndizvo zvakarerwa Mwari. (x4)
 
-2
 Asi Jona wakatiza,
 Akasaterera Mwari. (x4)
 
-3
 Dutu guru rakamuka,
 Vomuchikepe vakatya. (x4)
 
-4
 Asi Jona anga avete,
 Muka, Jona unamate. (x4)
 
-5
 Vakazokanda mujenya,
 Jona ndokubatwa nayo. (x4)
 
-6
 Vakamukanda mugungwa,
 Zihove rakamuminya. (x4)
 
-7
 Mwari wakamuponesa
 Jona ndokuzoterera. (x4)
 
-8
 Kana tisingatereri,
 Zita raSHE rinomhurwa. (x4)
 
-9
 Nesu ngatimuteterere,
 Mwari uchatiponesa. (x4)
 
-10
 Muka Jona uterere. (x5)</div>
     </section>
 
@@ -9217,6 +9140,50 @@ document.getElementById('hymnInput').addEventListener('keydown', function(e){
       apply(saved);
     });
   })();
+</script>
+<script>
+function standardizeVerseBlocks(){
+  document.querySelectorAll(".verse").forEach(verseDiv => {
+    const labelEl = verseDiv.querySelector(".label");
+
+    // Get only the raw text (keeps line breaks)
+    let raw = verseDiv.textContent || "";
+
+    // Remove the word "Verse" from the beginning if present
+    raw = raw.replace(/^Verse\s*/i, "").trim();
+
+    // Remove any stanza numbers at stanza starts (1. 2) 3- etc)
+    raw = raw.replace(/(^|\n)\s*\d+\s*([.)-:]?)\s+/g, "$1");
+
+    // Split into stanzas by blank lines
+    const stanzas = raw.split(/\n\s*\n+/).map(s => s.trim()).filter(Boolean);
+
+    // Rebuild HTML
+    verseDiv.innerHTML = "";
+    if (labelEl) verseDiv.appendChild(labelEl);
+
+    stanzas.forEach((stanza, i) => {
+      const block = document.createElement("div");
+      block.className = "vblock";
+
+      const num = document.createElement("div");
+      num.className = "vnum";
+      num.textContent = (i + 1) + ".";
+
+      const body = document.createElement("div");
+      body.className = "vbody";
+      body.textContent = stanza;
+
+      block.appendChild(num);
+      block.appendChild(body);
+      verseDiv.appendChild(block);
+    });
+  });
+}
+
+window.addEventListener("load", () => {
+  standardizeVerseBlocks();
+});
 </script>
 
 </body>
