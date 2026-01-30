@@ -2,12 +2,12 @@
 <html lang="sn">
 <head>
   <meta charset="utf-8" />
-    <meta name="app-version" content="version 1.0.0">
+    <meta name="app-version" content="version 1.0">
     <!-- iOS Home Screen icon -->
-<link rel="manifest" href="manifest.webmanifest?v=version 1.0.0">
+<link rel="manifest" href="manifest.webmanifest?v=version 1.0">
 
-<link rel="apple-touch-icon" href="icon.png?v=version 1.0.0">
-<link rel="icon" href="icon.png?v=version 1.0.0">
+<link rel="apple-touch-icon" href="icon.png?v=version 1.0">
+<link rel="icon" href="icon.png?v=version 1.0">
 
 
 <meta name="theme-color" content="#165a93">
@@ -186,7 +186,7 @@
   border:1px solid rgba(15,79,131,.25);
   background:rgba(255,255,255,.92);
   color:#0b4f86;
-  font-weight:800;
+  font-weight:800;z-index:1000;
   cursor:pointer;
   box-shadow:0 6px 18px rgba(15,23,42,.10);
   display:none;
@@ -6902,7 +6902,7 @@ Hareruya!
 Vokudenga, uchirai;
 Hareruya!
 Vapanyika davidzai:
-Hareruya!
+ Hareruya!
           
 Bwe rabva, varindiwo;
 Hareruya!
@@ -9122,63 +9122,9 @@ Imba ndokuzoti, bhu!</div>
     </section>
     
 </main>
-
-<script>
-function jumpToHymn(){
-  const inputEl = document.getElementById('hymnInput');
-  if (!inputEl) return;
-
-  const raw = (inputEl.value || "").trim();
-  if (!raw) return;
-
-  inputEl.blur(); // hide keyboard
-
-  const padded = String(parseInt(raw, 10)).padStart(3,'0');
-  const target = document.getElementById('hymn-' + padded);
-
-  if (target){
-    requestAnimationFrame(() => {
-      target.scrollIntoView({ behavior:'smooth', block:'start' });
-    });
-  } else {
-    alert('Hymn ' + padded + ' not found.');
-  }
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-  const inputEl = document.getElementById('hymnInput');
-  const formEl = inputEl?.closest('form');
-
-  if (formEl) {
-    formEl.addEventListener('submit', (e) => {
-      e.preventDefault();
-      jumpToHymn();
-    });
-  }
-});
-</script>
-
     
 <button id="toTop" aria-label="Back to top">↑ Top</button>
-<script>
-  const btn = document.getElementById("toTop");
 
-  window.addEventListener("scroll", () => {
-    btn.style.display = window.scrollY > 500 ? "block" : "none";
-  });
-
-  btn.addEventListener("click", () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  });
-</script>
-<script>
-  // Register Service Worker (enables offline + caching = more app-like)
-  if ("serviceWorker" in navigator) {
-    window.addEventListener("load", () => {
-      navigator.serviceWorker.register("./sw.js").catch(() => {});
-    });
-  }
-</script>
 <div id="bmModal" class="fav-modal" style="display:none;">
   <div class="fav-card" role="dialog" aria-modal="true" aria-label="Bookmarks">
     <div class="fav-head">
@@ -9254,7 +9200,61 @@ window.addEventListener("load", () => {
   standardizeVerseBlocks();
 });
 </script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const btn = document.getElementById("toTop");
+  if (!btn) return;
 
+  window.addEventListener("scroll", () => {
+    btn.style.display = window.scrollY > 500 ? "block" : "none";
+  }, { passive: true });
+
+  btn.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+});
+</script>
+<script>
+(function () {
+  function jumpToHymn(){
+    const inputEl = document.getElementById('hymnInput');
+    if (!inputEl) return;
+
+    const raw = (inputEl.value || "").trim();
+    if (!raw) return;
+
+    inputEl.blur();      // hide keyboard
+    inputEl.value = "";  // clear the box
+
+    const padded = String(parseInt(raw, 10)).padStart(3,'0');
+    const target = document.getElementById('hymn-' + padded);
+
+    if (target){
+      requestAnimationFrame(() => {
+        target.scrollIntoView({ behavior:'smooth', block:'start' });
+      });
+    } else {
+      alert('Hymn ' + padded + ' not found.');
+    }
+  }
+
+  // Make it available for your inline onclick="jumpToHymn()"
+  window.jumpToHymn = jumpToHymn;
+
+  // Make Enter work reliably too
+  document.addEventListener('DOMContentLoaded', () => {
+    const inputEl = document.getElementById('hymnInput');
+    if (!inputEl) return;
+
+    inputEl.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        jumpToHymn();
+      }
+    });
+  });
+})();
+</script>
 </body>
 </html>
 
