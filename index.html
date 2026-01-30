@@ -136,13 +136,6 @@
 }
     .verse .label{display:inline-block;font-weight:800;color:var(--accent-red);margin-bottom:6px;letter-spacing:.4px}
       /* Auto-numbered stanza layout */
-.verse .vblock{
-  display:grid;
-  grid-template-columns: 2.2em 1fr;
-  column-gap:.6em;
-  margin-top:10px;
-}
-
 .verse .vnum{
   text-align:right;
   font-family:"Inter", system-ui, sans-serif;
@@ -155,10 +148,13 @@
 }
 .verse .vblock{
   display:grid;
-  grid-template-columns: 2.2em 1fr;
-  column-gap:.6em;
+  grid-template-columns: 0.95em 1fr; /* micro shift left */
+  column-gap:.2em;
   margin-top:10px;
 }
+
+
+
 
 .verse .vnum{
   text-align:right;
