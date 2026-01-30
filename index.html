@@ -8,6 +8,23 @@
 
 <link rel="apple-touch-icon" href="icon.png?v=version 1.0">
 <link rel="icon" href="icon.png?v=version 1.0">
+  <script>
+  (function () {
+    const v = document
+      .querySelector('meta[name="app-version"]')
+      ?.content?.trim();
+
+    if (!v) return;
+
+    const url = new URL(location.href);
+
+    // Force a versioned URL so HTML cannot be reused from cache
+    if (url.searchParams.get('v') !== v) {
+      url.searchParams.set('v', v);
+      location.replace(url.toString());
+    }
+  })();
+  </script>
 
 
 <meta name="theme-color" content="#165a93">
