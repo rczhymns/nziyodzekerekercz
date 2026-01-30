@@ -2,13 +2,13 @@
 <html lang="sn">
 <head>
   <meta charset="utf-8" />
+    <meta name="app-version" content="2026.01.30">
     <!-- iOS Home Screen icon -->
-<link rel="apple-touch-icon" href="icon.png">
-<link rel="icon" href="icon.png">
-<link rel="apple-touch-icon" href="icon.png">
-<link rel="icon" href="icon.png">
-<!-- PWA / "app-like" settings -->
-<link rel="manifest" href="manifest.webmanifest">
+<link rel="manifest" href="manifest.webmanifest?v=2026.01.30">
+
+<link rel="apple-touch-icon" href="icon.png?v=2026.01.30">
+<link rel="icon" href="icon.png?v=2026.01.30">
+
 
 <meta name="theme-color" content="#165a93">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -335,6 +335,27 @@
 }
 
   </style>
+    <script>
+(function () {
+  const CURRENT = document
+    .querySelector('meta[name="app-version"]')
+    ?.getAttribute('content');
+
+  const KEY = 'nziyo_app_version';
+
+  try {
+    const STORED = localStorage.getItem(KEY);
+
+    if (STORED && STORED !== CURRENT) {
+      localStorage.setItem(KEY, CURRENT);
+      location.reload(true);
+    } else if (!STORED) {
+      localStorage.setItem(KEY, CURRENT);
+    }
+  } catch (e) {}
+})();
+</script>
+<meta name="app-version" content="2026.01.30">
 </head>
 <script>
   let fontScale = 1;
@@ -485,9 +506,9 @@
   <div class="hymn-bar-inner">
     <div class="hymn-bar-label">HYMN</div>
 
-    <div class="hymn-search">
-      <input id="hymnInput" type="number" min="1" max="269" placeholder="e.g. 1, 23, 105">
-      <button type="button" onclick="jumpToHymn()">Go</button>
+<form class="hymn-search" onsubmit="return false;">
+  <input id="hymnInput" type="number" min="1" max="269" placeholder="e.g. 1, 23, 105">
+  <button type="submit">Go</button>
 
       <button class="bm-pill" type="button" onclick="openBookmarks()">
         🔖 (<span id="bmCount">0</span>)
@@ -9111,23 +9132,39 @@ Imba ndokuzoti, bhu!</div>
 
 <script>
 function jumpToHymn(){
-  const input = document.getElementById('hymnInput').value;
-  if(!input) return;
+  const inputEl = document.getElementById('hymnInput');
+  if (!inputEl) return;
 
-  const padded = String(input).padStart(3,'0');
+  const raw = (inputEl.value || "").trim();
+  if (!raw) return;
+
+  inputEl.blur(); // hide keyboard
+
+  const padded = String(parseInt(raw, 10)).padStart(3,'0');
   const target = document.getElementById('hymn-' + padded);
 
-  if(target){
-    target.scrollIntoView({behavior:'smooth'});
+  if (target){
+    requestAnimationFrame(() => {
+      target.scrollIntoView({ behavior:'smooth', block:'start' });
+    });
   } else {
     alert('Hymn ' + padded + ' not found.');
   }
 }
 
-document.getElementById('hymnInput').addEventListener('keydown', function(e){
-  if(e.key === 'Enter') jumpToHymn();
+document.addEventListener('DOMContentLoaded', () => {
+  const inputEl = document.getElementById('hymnInput');
+  const formEl = inputEl?.closest('form');
+
+  if (formEl) {
+    formEl.addEventListener('submit', (e) => {
+      e.preventDefault();
+      jumpToHymn();
+    });
+  }
 });
 </script>
+
     
 <button id="toTop" aria-label="Back to top">↑ Top</button>
 <script>
