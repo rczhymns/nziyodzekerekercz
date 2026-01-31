@@ -389,6 +389,7 @@
   }
 </script>
 <script>
+(() => {
   const BM_KEY = "nziyo_bookmarks_v1";
 
   const BOOKMARK_SVG = `
@@ -397,13 +398,40 @@
     </svg>
   `;
 
+  // Some browsers (notably iOS Safari private mode / strict settings) can throw on localStorage writes.
+  let memoryFallback = [];
+  const storageOK = (() => {
+    try {
+      const k = "__nziyo_test__";
+      localStorage.setItem(k, "1");
+      localStorage.removeItem(k);
+      return true;
+    } catch {
+      return false;
+    }
+  })();
+
   function getBookmarks(){
-    try { return JSON.parse(localStorage.getItem(BM_KEY) || "[]"); }
-    catch { return []; }
+    try {
+      if (!storageOK) return Array.isArray(memoryFallback) ? memoryFallback : [];
+      return JSON.parse(localStorage.getItem(BM_KEY) || "[]");
+    } catch {
+      return [];
+    }
   }
 
   function setBookmarks(list){
-    localStorage.setItem(BM_KEY, JSON.stringify(list));
+    const clean = Array.from(new Set(list)).sort();
+    if (!storageOK) {
+      memoryFallback = clean;
+      refreshBookmarkUI();
+      return;
+    }
+    try {
+      localStorage.setItem(BM_KEY, JSON.stringify(clean));
+    } catch {
+      memoryFallback = clean;
+    }
     refreshBookmarkUI();
   }
 
@@ -411,7 +439,7 @@
     const set = new Set(getBookmarks());
     if (set.has(num)) set.delete(num);
     else set.add(num);
-    setBookmarks(Array.from(set).sort());
+    setBookmarks(Array.from(set));
   }
 
   function refreshBookmarkUI(){
@@ -422,7 +450,7 @@
     });
 
     const countEl = document.getElementById("bmCount");
-    if (countEl) countEl.textContent = set.size;
+    if (countEl) countEl.textContent = String(set.size);
   }
 
   function injectBookmarkButtons(){
@@ -431,7 +459,7 @@
       const h2 = section.querySelector("h2");
       if (!h2) return;
 
-      // Avoid duplicates if you reload
+      // Avoid duplicates
       if (h2.querySelector(".bm-btn")) return;
 
       const btn = document.createElement("button");
@@ -440,24 +468,38 @@
       btn.setAttribute("aria-label", `Bookmark hymn ${num}`);
       btn.dataset.num = num;
       btn.innerHTML = BOOKMARK_SVG;
-      btn.addEventListener("click", () => toggleBookmark(num));
 
-      // Put it after the title (after .name if present)
+      // Click + keyboard support
+      btn.addEventListener("click", () => toggleBookmark(num));
+      btn.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          toggleBookmark(num);
+        }
+      });
+
+      // Place after the title
       const nameEl = h2.querySelector(".name");
-      if (nameEl && nameEl.nextSibling) {
-        nameEl.insertAdjacentElement("afterend", btn);
-      } else {
-        h2.appendChild(btn);
-      }
+      if (nameEl) nameEl.insertAdjacentElement("afterend", btn);
+      else h2.appendChild(btn);
     });
 
     refreshBookmarkUI();
   }
 
-  function openBookmarks(){
+  function escapeHtml(str){
+    return String(str).replace(/[&<>"']/g, s => ({
+      "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
+    }[s]));
+  }
+
+  // Expose these to inline onclick handlers
+  window.openBookmarks = function openBookmarks(){
     const modal = document.getElementById("bmModal");
     const list = document.getElementById("bmList");
     const nums = getBookmarks();
+
+    if (!modal || !list) return;
 
     list.innerHTML = "";
 
@@ -479,7 +521,7 @@
         `;
 
         row.querySelector("button").addEventListener("click", () => {
-          closeBookmarks();
+          window.closeBookmarks();
           sec?.scrollIntoView({behavior:"smooth", block:"start"});
         });
 
@@ -488,67 +530,65 @@
     }
 
     modal.style.display = "flex";
-  }
+  };
 
-  function closeBookmarks(){
-    document.getElementById("bmModal").style.display = "none";
-  }
+  window.closeBookmarks = function closeBookmarks(){
+    const modal = document.getElementById("bmModal");
+    if (modal) modal.style.display = "none";
+  };
 
-  function escapeHtml(str){
-    return String(str).replace(/[&<>"']/g, s => ({
-      "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
-    }[s]));
-  }
+  function attachTopBarDoubleTap(){
+    const bar = document.querySelector(".masthead");
+    if (!bar) return;
 
-  // Init
-// Init
-// Init
-window.addEventListener("load", () => {
-  injectBookmarkButtons();
+    let lastTap = 0;
 
-  // Ensure Go works reliably on iPhone + Android
-  const input = document.getElementById("hymnInput");
-  if (input) {
-    input.addEventListener("keydown", (e) => {
-      if (e.key === "Enter") {
-        e.preventDefault();
-        jumpToHymn();
+    const tap = (e) => {
+      if (e.target && e.target.closest && e.target.closest("input, button, label")) return;
+
+      const now = Date.now();
+      if (now - lastTap < 350) {
+        window.scrollTo({ top: 0, behavior: "smooth" });
       }
+      lastTap = now;
+    };
+
+    // Pointer events cover most modern iOS/Android; touchend as a fallback
+    bar.addEventListener("pointerup", tap);
+    bar.addEventListener("touchend", tap, { passive: true });
+
+    // Desktop support
+    bar.addEventListener("dblclick", (e) => {
+      if (e.target.closest("input, button, label")) return;
+      window.scrollTo({ top: 0, behavior: "smooth" });
     });
   }
-});
 
+  function attachModalOutsideClick(){
+    document.addEventListener("click", (e) => {
+      const modal = document.getElementById("bmModal");
+      if (modal && modal.style.display === "flex" && e.target === modal) window.closeBookmarks();
+    });
+  }
 
-  // Double-tap the blue bar to go to top (iPhone + Android)
-const bar = document.querySelector(".masthead");
-  if (!bar) return;
+  // Init after DOM is ready (more reliable than querying in <head>)
+  window.addEventListener("DOMContentLoaded", () => {
+    injectBookmarkButtons();
+    attachTopBarDoubleTap();
+    attachModalOutsideClick();
 
-  let lastTap = 0;
-
-  bar.addEventListener("touchend", (e) => {
-    // Don't trigger when user taps input/buttons in the bar
-    if (e.target.closest("input, button, label")) return;
-
-    const now = Date.now();
-    if (now - lastTap < 300) {
-      window.scrollTo({ top: 0, behavior: "smooth" });
+    // Ensure "Go" works on mobile keyboard
+    const input = document.getElementById("hymnInput");
+    if (input) {
+      input.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+          e.preventDefault();
+          if (typeof window.jumpToHymn === "function") window.jumpToHymn();
+        }
+      });
     }
-    lastTap = now;
   });
-
-  // Optional: desktop support (double-click)
-  bar.addEventListener("dblclick", (e) => {
-    if (e.target.closest("input, button, label")) return;
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  });
-});
-
-
-  // Optional: tap outside to close
-  document.addEventListener("click", (e) => {
-    const modal = document.getElementById("bmModal");
-    if (modal && modal.style.display === "flex" && e.target === modal) closeBookmarks();
-  });
+})();
 </script>
 
 <body>
@@ -567,14 +607,14 @@ const bar = document.querySelector(".masthead");
   <div class="hymn-bar-inner">
     <div class="hymn-bar-label">HYMN</div>
 
-<form class="hymn-search" onsubmit="return false;">
-  <input id="hymnInput" type="number" min="1" max="269" placeholder="e.g. 1, 23, 105">
-<button type="button" onclick="jumpToHymn()">Go</button>
+    <form class="hymn-search" onsubmit="return false;">
+      <input id="hymnInput" type="number" min="1" max="269" placeholder="e.g. 1, 23, 105">
+      <button type="button" onclick="jumpToHymn()">Go</button>
 
       <button class="bm-pill" type="button" onclick="openBookmarks()">
         🔖 (<span id="bmCount">0</span>)
       </button>
-    </div>
+    </form>
   </div>
 </nav>
 
