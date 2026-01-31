@@ -502,8 +502,22 @@
 
   // Init
 // Init
+// Init
 window.addEventListener("load", () => {
   injectBookmarkButtons();
+
+  // Ensure Go works reliably on iPhone + Android
+  const input = document.getElementById("hymnInput");
+  if (input) {
+    input.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        jumpToHymn();
+      }
+    });
+  }
+});
+
 
   // Double-tap the blue bar to go to top (iPhone + Android)
 const bar = document.querySelector(".masthead");
@@ -555,7 +569,7 @@ const bar = document.querySelector(".masthead");
 
 <form class="hymn-search" onsubmit="return false;">
   <input id="hymnInput" type="number" min="1" max="269" placeholder="e.g. 1, 23, 105">
-  <button type="submit">Go</button>
+<button type="button" onclick="jumpToHymn()">Go</button>
 
       <button class="bm-pill" type="button" onclick="openBookmarks()">
         🔖 (<span id="bmCount">0</span>)
