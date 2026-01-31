@@ -2,12 +2,12 @@
 <html lang="sn">
 <head>
   <meta charset="utf-8" />
-    <meta name="app-version" content="version 1.0">
+    <meta name="app-version" content="version 1.0.0">
     <!-- iOS Home Screen icon -->
-<link rel="manifest" href="manifest.webmanifest?v=version 1.0">
+<link rel="manifest" href="manifest.webmanifest?v=version 1.0.0">
 
-<link rel="apple-touch-icon" href="icon.png?v=version 1.0">
-<link rel="icon" href="icon.png?v=version 1.0">
+<link rel="apple-touch-icon" href="icon.png?v=version 1.0.0">
+<link rel="icon" href="icon.png?v=version 1.0.0">
   <script>
   (function () {
     const v = document
@@ -495,9 +495,34 @@
   }
 
   // Init
-  window.addEventListener("load", () => {
-    injectBookmarkButtons();
+// Init
+window.addEventListener("load", () => {
+  injectBookmarkButtons();
+
+  // Double-tap the blue bar to go to top (iPhone + Android)
+const bar = document.querySelector(".masthead");
+  if (!bar) return;
+
+  let lastTap = 0;
+
+  bar.addEventListener("touchend", (e) => {
+    // Don't trigger when user taps input/buttons in the bar
+    if (e.target.closest("input, button, label")) return;
+
+    const now = Date.now();
+    if (now - lastTap < 300) {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+    lastTap = now;
   });
+
+  // Optional: desktop support (double-click)
+  bar.addEventListener("dblclick", (e) => {
+    if (e.target.closest("input, button, label")) return;
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+});
+
 
   // Optional: tap outside to close
   document.addEventListener("click", (e) => {
